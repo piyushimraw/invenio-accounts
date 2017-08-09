@@ -38,7 +38,7 @@ import flask_login
 from flask import current_app
 from flask_kvsession import SessionID
 from flask_security import url_for_security
-from flask_security.utils import hash_password
+from flask_security.utils import encrypt_password
 from werkzeug.local import LocalProxy
 
 # "Convenient references" (lifted from flask_security source)
@@ -59,7 +59,7 @@ def create_test_user(email, password='123456', **kwargs):
     :returns: A :class:`invenio_accounts.models.User` instance.
     """
     assert flask.current_app.testing
-    hashed_password = hash_password(password)
+    hashed_password = encrypt_password(password)
     user = _datastore.create_user(email=email, password=hashed_password,
                                   **kwargs)
     _datastore.commit()

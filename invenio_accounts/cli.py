@@ -71,7 +71,7 @@ def users_create(email, password, active):
     form = ConfirmRegisterForm(MultiDict(kwargs), csrf_enabled=False)
 
     if form.validate():
-        kwargs['password'] = hash_password(kwargs['password'])
+        kwargs['password'] = encrypt_password(kwargs['password'])
         kwargs['active'] = active
         _datastore.create_user(**kwargs)
         click.secho('User created successfully.', fg='green')

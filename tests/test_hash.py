@@ -30,7 +30,7 @@ from binascii import hexlify, unhexlify
 
 import flask
 import pytest
-from flask_security.utils import hash_password, verify_password
+from flask_security.utils import encrypt_password, verify_password
 
 from invenio_accounts.hash import _to_binary, _to_string, mysql_aes_decrypt, \
     mysql_aes_encrypt
@@ -66,7 +66,7 @@ def test_context(app):
     """Test passlib password context."""
     with app.app_context():
         ctx = flask.current_app.extensions['security'].pwd_context
-        hashval = hash_password("test")
+        hashval = encrypt_password("test")
         assert hashval != "test"
         assert verify_password("test", hashval)
         assert not ctx.needs_update(hashval)

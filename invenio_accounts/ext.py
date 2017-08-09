@@ -58,7 +58,7 @@ def get_hmac(password):
     return _to_binary(password)
 
 
-def hash_password(password):
+def encrypt_password(password):
     """Override Flask-Security's default hashing function.
 
     :param password: The plain password.
@@ -87,11 +87,11 @@ class InvenioAccounts(object):
         """Monkey-patch Flask-Security."""
         if utils.get_hmac != get_hmac:
             utils.get_hmac = get_hmac
-        if utils.hash_password != hash_password:
-            utils.hash_password = hash_password
-            changeable.hash_password = hash_password
-            recoverable.hash_password = hash_password
-            registerable.hash_password = hash_password
+        if utils.encrypt_password != encrypt_password:
+            utils.encrypt_password = encrypt_password
+            changeable.encrypt_password = encrypt_password
+            recoverable.encrypt_password = encrypt_password
+            registerable.encrypt_password = encrypt_password
 
         # Disable remember me cookie generation as it does not work with
         # session activity tracking (a remember me token will bypass revoking

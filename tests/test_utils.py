@@ -31,7 +31,7 @@ from datetime import datetime
 import flask_login
 import pytest
 from flask_security import url_for_security
-from flask_security.utils import hash_password
+from flask_security.utils import encrypt_password
 from invenio_db import db
 
 from invenio_accounts import testutils
@@ -71,7 +71,7 @@ def test_client_authenticated(app):
             assert response.location is None
 
             # Create a user manually directly in the datastore
-            ds.create_user(email=email, password=hash_password(password))
+            ds.create_user(email=email, password=encrypt_password(password))
             db.session.commit()
 
             # Manual login via view
