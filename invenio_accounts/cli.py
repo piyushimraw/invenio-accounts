@@ -32,7 +32,7 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.forms import ConfirmRegisterForm
-from flask_security.utils import hash_password
+from flask_security.utils import encrypt_password
 from werkzeug.datastructures import MultiDict
 from werkzeug.local import LocalProxy
 
